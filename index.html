@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Laboratorio EARG</title>
+</head>
+<body>
+
+    <header class="container mt-2">
+
+        <div class="d-flex justify-content-between contenedor-action-header">
+            <input id="buscador" type="text" class="form-control" placeholder="Buscar">
+            <button type="button" class="btn btn-primary " data-toggle="modal" data-target="#myModal">
+                Agregar Analisis
+            </button>
+        </div>
+        
+
+        <div class="modal fade" id="myModal">
+            <div class="modal-dialog">
+                <div class="modal-content">
+            
+
+                    <div class="modal-header">
+                        <h4 class="modal-title">Agregar Nuevo Reporte</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+
+                    <div class="modal-body">
+                        <form id="formulario">
+                            <input type="text" class="form-control" id="analisis" name="analisis" placeholder="Analisis">
+                            <input type="text" class="form-control mt-1" id="empresa" name="empresa" placeholder="Empresa">
+                            <input type="date" class="form-control mt-1" id="fecha" name="fecha" placeholder="Fecha">
+                            <input type="text" class="form-control mt-1" id="telefono" name="telefono" placeholder="Telefono">
+                            <input type="text" class="form-control mt-1" id="correo" name="correo" placeholder="E-mail">
+                            <input type="text" class="form-control mt-1" id="resultado" name="resultado" placeholder="Resultado">
+                            <button type="submit" class="btn btn-info mt-1 float-right">Agregar</button>
+                        </form>
+                    </div>
+            
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="container mt-2 contenedor-reportes">
+        <h2>Listado de Analisis</h2>
+        <hr>
+        <div id="reportes" class="row"></div>
+    </main>
+    <script src="app.js"></script>
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <!-- Popper JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+    <!-- Latest compiled JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
