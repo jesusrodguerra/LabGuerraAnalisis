@@ -7,6 +7,7 @@ const inputCorreo = document.getElementById('correo');
 const formulario = document.getElementById('formulario');
 const reportes = document.getElementById('reportes');
 const buscador = document.getElementById('buscador');
+const filtrado = document.getElementById('filtrado');
 
 let DB;
 
@@ -47,77 +48,85 @@ class AgregarAnalisis {
         const objectStore = DB.transaction('analisis').objectStore('analisis');
         objectStore.openCursor().onsuccess = function(e) {
             const cursor = e.target.result;
+
             if(cursor) {
                 const {analisis, fecha, telefono, correo, resultado, empresa, id} = cursor.value;
 
-                const divContenedor = document.createElement('div');
-                divContenedor.classList.add('col-lg-6', 'col-md-6', 'col-sm-12', 'contenedor');
+                if(objetoFiltro.nombreAnalisis === '') {
     
-                const divAnalisis = document.createElement('h3');
-                divAnalisis.textContent = analisis;
-    
-                const divEmpresa = document.createElement('p');
-                divEmpresa.innerHTML = `<strong>Empresa:</strong> ${empresa}`;
-    
-                const divCorreo = document.createElement('p');
-                divCorreo.innerHTML = `<strong>Correo:</strong> ${correo}`;
-    
-                const divTelefono = document.createElement('p');
-                divTelefono.innerHTML = `<strong>Telefono:</strong> ${telefono}`;
-    
-                const divFecha = document.createElement('p');
-                divFecha.innerHTML = `<strong>Fecha:</strong> ${fecha}`;
-    
-                const divResultado = document.createElement('p');
-                divResultado.innerHTML = `<strong>Resultado:</strong> ${resultado}`;
-    
-                divContenedor.appendChild(divAnalisis);
-                divContenedor.appendChild(divEmpresa);
-                divContenedor.appendChild(divCorreo);
-                divContenedor.appendChild(divTelefono);
-                divContenedor.appendChild(divFecha);
-                divContenedor.appendChild(divResultado);
-    
-                reportes.appendChild(divContenedor);
+                    const divContenedor = document.createElement('div');
+                    divContenedor.classList.add('col-lg-6', 'col-md-6', 'col-sm-12', 'contenedor');
+        
+                    const divAnalisis = document.createElement('h3');
+                    divAnalisis.textContent = analisis;
+        
+                    const divEmpresa = document.createElement('p');
+                    divEmpresa.innerHTML = `<strong>Empresa:</strong> ${empresa}`;
+        
+                    const divCorreo = document.createElement('p');
+                    divCorreo.innerHTML = `<strong>Correo:</strong> ${correo}`;
+        
+                    const divTelefono = document.createElement('p');
+                    divTelefono.innerHTML = `<strong>Telefono:</strong> ${telefono}`;
+        
+                    const divFecha = document.createElement('p');
+                    divFecha.innerHTML = `<strong>Fecha:</strong> ${fecha}`;
+        
+                    const divResultado = document.createElement('p');
+                    divResultado.innerHTML = `<strong>Resultado:</strong> ${resultado}`;
+        
+                    divContenedor.appendChild(divAnalisis);
+                    divContenedor.appendChild(divEmpresa);
+                    divContenedor.appendChild(divCorreo);
+                    divContenedor.appendChild(divTelefono);
+                    divContenedor.appendChild(divFecha);
+                    divContenedor.appendChild(divResultado);
+        
+                    reportes.appendChild(divContenedor);
 
+                    while(filtrado.firstChild) {
+                        filtrado.removeChild(filtrado.firstChild)
+                    }
+
+                } else if(objetoFiltro.nombreAnalisis === cursor.value.analisis.toLowerCase()) {
+
+                   
+
+                    const divContenedor = document.createElement('div');
+                    divContenedor.classList.add('col-lg-6', 'col-md-6', 'col-sm-12', 'contenedor');
+
+                    const divFiltrado = document.createElement('h3');
+                    divFiltrado.textContent = analisis;
+
+                    const divEmpresa = document.createElement('p');
+                    divEmpresa.innerHTML = `<strong>Empresa:</strong> ${empresa}`;
+        
+                    const divCorreo = document.createElement('p');
+                    divCorreo.innerHTML = `<strong>Correo:</strong> ${correo}`;
+        
+                    const divTelefono = document.createElement('p');
+                    divTelefono.innerHTML = `<strong>Telefono:</strong> ${telefono}`;
+        
+                    const divFecha = document.createElement('p');
+                    divFecha.innerHTML = `<strong>Fecha:</strong> ${fecha}`;
+
+                    const divResultado = document.createElement('p');
+                    divResultado.innerHTML = `<strong>Resultado:</strong> ${resultado}`;
+
+                    divContenedor.appendChild(divFiltrado)
+                    divContenedor.appendChild(divEmpresa)
+                    divContenedor.appendChild(divCorreo)
+                    divContenedor.appendChild(divTelefono)
+                    divContenedor.appendChild(divFecha)
+                    divContenedor.appendChild(divResultado)
+
+                    filtrado.appendChild(divContenedor)
+
+                }
+                
                 cursor.continue();
             }
         }
-
-        // analisis.forEach(el => {
-        //     const {analisis, fecha, telefono, correo, resultado, empresa, id} = el;
-
-        //     const divContenedor = document.createElement('div');
-        //     divContenedor.classList.add('col-lg-6', 'col-md-6', 'col-sm-12', 'contenedor');
-
-        //     const divAnalisis = document.createElement('h3');
-        //     divAnalisis.textContent = analisis;
-
-        //     const divEmpresa = document.createElement('p');
-        //     divEmpresa.innerHTML = `<strong>Empresa:</strong> ${empresa}`;
-
-        //     const divCorreo = document.createElement('p');
-        //     divCorreo.innerHTML = `<strong>Correo:</strong> ${correo}`;
-
-        //     const divTelefono = document.createElement('p');
-        //     divTelefono.innerHTML = `<strong>Telefono:</strong> ${telefono}`;
-
-        //     const divFecha = document.createElement('p');
-        //     divFecha.innerHTML = `<strong>Fecha:</strong> ${fecha}`;
-
-        //     const divResultado = document.createElement('p');
-        //     divResultado.innerHTML = `<strong>Resultado:</strong> ${resultado}`;
-
-        //     divContenedor.appendChild(divAnalisis);
-        //     divContenedor.appendChild(divEmpresa);
-        //     divContenedor.appendChild(divCorreo);
-        //     divContenedor.appendChild(divTelefono);
-        //     divContenedor.appendChild(divFecha);
-        //     divContenedor.appendChild(divResultado);
-
-        //     reportes.appendChild(divContenedor);
-
-        // })
     }
 
     limpiarHtml() {
@@ -125,30 +134,6 @@ class AgregarAnalisis {
             reportes.removeChild(reportes.firstChild);
         }
     }
-
-    filtrar() {
-        const resultado = this.analisis.filter(this.filtrarNombre)
-    
-        this.mostrarAnalisis()
-        console.log(resultado);
-    }
-    
-    filtrarNombre() {
-
-        const objectStore = DB.transaction('analisis').objectStore('analisis');
-        objectStore.openCursor().onsuccess = function(e) {
-            const cursor = e.target.result;
-            console.log(cursor.value.analisis)
-            
-            if(objetoFiltro.nombreAnalisis) {
-                return cursor.value.analisis.toLowerCase() === objetoFiltro.nombreAnalisis
-            }
-            return cursor.value;
-        }
-
-
-    }
-
 }
 
 const agregar = new AgregarAnalisis()
@@ -161,11 +146,13 @@ inputResultado.addEventListener('input', tomarValor);
 inputCorreo.addEventListener('input', tomarValor);
 formulario.addEventListener('submit', validarAgregar);
 
-buscador.addEventListener('input', (e) => {
+buscador.addEventListener('input', filtroInput)
+
+function filtroInput(e) {
     objetoFiltro.nombreAnalisis = e.target.value;
     console.log(objetoFiltro)
-    agregar.filtrar();
-})
+    agregar.mostrarAnalisis();
+}
 
 function tomarValor(e) {
     objeto[e.target.name] = e.target.value;
